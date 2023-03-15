@@ -1,20 +1,36 @@
 package com.projetopedidos.estudo.entities;
 
+import java.io.Serial;
+import java.util.List;
 import java.util.Objects;
-import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.io.Serializable;
+import java.util.UUID;
+
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String email;
     private String phone;
     private String password;
+    //private List<Order> listOrder;
 
     public User() {}
 
-    public User(Long id, String name, String email, String phone, String password) {
+    public User(UUID id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,11 +38,11 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -65,10 +81,9 @@ public class User implements Serializable{
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof User)) {
+        if (!(o instanceof User user)) {
             return false;
         }
-        User user = (User) o;
         return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Objects.equals(password, user.password);
     }
 
