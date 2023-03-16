@@ -1,5 +1,6 @@
 package com.projetopedidos.estudo.services;
 
+import com.projetopedidos.estudo.dto.UserDTO;
 import com.projetopedidos.estudo.entities.User;
 import com.projetopedidos.estudo.repositories.UserRepository;
 import java.util.List;
@@ -21,5 +22,13 @@ public class UserService {
   public User findById (UUID id) {
     Optional<User> user = repository.findById(id);
     return user.get();
+  }
+
+  public User insert(User obj) {
+    return repository.insert(obj);
+  }
+
+  public User fromDTO(UserDTO objDTO) {
+    return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getEmail());
   }
 }

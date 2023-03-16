@@ -1,32 +1,25 @@
 package com.projetopedidos.estudo.entities;
 
-import java.io.Serial;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import java.io.Serializable;
 import java.util.UUID;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "tb_user")
+@Document(collection="user")
 public class User implements Serializable{
-    @Serial
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String email;
     private String phone;
     private String password;
-    //private List<Order> listOrder;
+    private final List<Order> listOrder = new ArrayList<>();
 
     public User() {}
 
@@ -75,6 +68,22 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getListOrder() {
+        return listOrder;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("email", email)
+                .append("phone", phone)
+                .append("password", password)
+                .append("listOrder", listOrder)
+                .toString();
     }
 
     @Override
