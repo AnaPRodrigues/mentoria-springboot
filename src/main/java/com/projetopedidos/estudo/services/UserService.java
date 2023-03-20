@@ -19,7 +19,7 @@ public class UserService {
     return repository.findAll();
   }
 
-  public User findById (UUID id) {
+  public User findById (String id) {
     Optional<User> user = repository.findById(id);
     return user.get();
   }
@@ -29,6 +29,6 @@ public class UserService {
   }
 
   public User fromDTO(UserDTO objDTO) {
-    return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getEmail());
+    return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPhone(), objDTO.getPassword());
   }
 }

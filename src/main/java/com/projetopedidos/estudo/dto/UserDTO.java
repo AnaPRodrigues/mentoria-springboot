@@ -1,29 +1,34 @@
 package com.projetopedidos.estudo.dto;
 
+import com.projetopedidos.estudo.entities.User;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class UserDTO {
+public class UserDTO implements Serializable {
 
-  private UUID id;
+  private String id;
   private String name;
   private String email;
   private String phone;
 
-  public UserDTO(UUID id, String name, String email, String phone) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
+  private String password;
+
+  public UserDTO(User obj){
+    id = obj.getId();
+    name = obj.getName();
+    email = obj.getEmail();
+    phone = obj.getPhone();
+    password = obj.getPassword();
   }
 
   public UserDTO() {
   }
 
-  public UUID getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -49,5 +54,13 @@ public class UserDTO {
 
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
