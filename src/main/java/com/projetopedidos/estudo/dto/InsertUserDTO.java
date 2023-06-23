@@ -1,35 +1,25 @@
 package com.projetopedidos.estudo.dto;
 
+import com.projetopedidos.estudo.command.Command;
+import com.projetopedidos.estudo.command.user.CreateUserCommand;
 import com.projetopedidos.estudo.entities.User;
-import java.io.Serializable;
-import java.util.UUID;
+import com.projetopedidos.estudo.services.generator.GeneratorUUID;
 
-public class UserDTO implements Serializable {
-
-  private String id;
+public class InsertUserDTO implements Command {
   private String name;
   private String email;
   private String phone;
 
   private String password;
 
-  public UserDTO(User obj){
-    id = obj.getId();
+  public InsertUserDTO(User obj){
     name = obj.getName();
     email = obj.getEmail();
     phone = obj.getPhone();
     password = obj.getPassword();
   }
 
-  public UserDTO() {
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
+  public InsertUserDTO() {
   }
 
   public String getName() {
@@ -62,5 +52,11 @@ public class UserDTO implements Serializable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public CreateUserCommand toInsertUserCommand() {
+    GeneratorUUID id = new GeneratorUUID();
+    String uuid = id.generatorId();
+    return new CreateUserCommand(uuid, this.getName(), this.getEmail(),this.getPhone(), this.getPassword());
   }
 }

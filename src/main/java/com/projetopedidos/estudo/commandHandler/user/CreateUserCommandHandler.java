@@ -1,16 +1,17 @@
-package com.projetopedidos.estudo.services;
+package com.projetopedidos.estudo.commandHandler.user;
 
-import com.projetopedidos.estudo.dto.UserDTO;
+import com.projetopedidos.estudo.command.user.CreateUserCommand;
+import com.projetopedidos.estudo.commandHandler.CommandHandler;
 import com.projetopedidos.estudo.entities.User;
 import com.projetopedidos.estudo.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+@Component
+public class CreateUserCommandHandler implements CommandHandler<CreateUserCommand, User> {
 
   @Autowired
   private UserRepository repository;
@@ -24,11 +25,11 @@ public class UserService {
     return user.get();
   }
 
-  public User insert(User obj) {
-    return repository.insert(obj);
-  }
+  @Override
+  public User handle(CreateUserCommand command) {
 
-  public User fromDTO(UserDTO objDTO) {
-    return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPhone(), objDTO.getPassword());
+    User user = new User(command);
+
+    return repository.insert(user);
   }
 }

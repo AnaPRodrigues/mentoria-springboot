@@ -1,5 +1,7 @@
 package com.projetopedidos.estudo.entities;
 
+import com.mongodb.lang.Nullable;
+import com.projetopedidos.estudo.command.user.CreateUserCommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,16 +21,19 @@ public class User implements Serializable{
     private String email;
     private String phone;
     private String password;
-    private final List<Order> listOrder = new ArrayList<>();
+
+    @Nullable
+    private List<Order> listOrder = new ArrayList<>();
 
     public User() {}
 
-    public User(String id, String name, String email, String phone, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
+    public User(CreateUserCommand command) {
+        this.id = command.getId();
+        this.name = command.getName();
+        this.email = command.getEmail();
+        this.phone = command.getPhone();
+        this.password = command.getPassword();
+        this.listOrder = this.getListOrder();
     }
 
     public String getId() {
